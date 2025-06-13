@@ -1,87 +1,87 @@
 # ChatBot GBN
 
-## Visão Geral
+## Overview
 
-O ChatBot GBN é uma aplicação de chat inteligente desenvolvida para uso interno na GBN, utilizando tecnologias modernas e boas práticas de desenvolvimento.
+ChatBot GBN is an intelligent chat application developed for internal use at GBN, utilizing modern technologies and development best practices.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 ### Frontend
 
 - Angular 19 (Standalone Components)
-- SCSS para estilização
-- RxJS para programação reativa
-- Angular Material (planejado)
+- SCSS for styling
+- RxJS for reactive programming
+- Angular Material (planned)
 
 ### Backend
 
 - Node.js
 - Express.js
 - Prisma ORM
-- SQLite (desenvolvimento)
-- PostgreSQL (planejado para produção)
+- SQLite (development)
+- PostgreSQL (planned for production)
 
-### Autenticação
+### Authentication
 
 - JWT (JSON Web Tokens) ✅
 - Refresh Tokens ✅
-- Bcrypt para hash de senhas ✅
-- Middleware de autenticação ✅
+- Bcrypt for password hashing ✅
+- Authentication middleware ✅
 
-## Funcionalidades Implementadas
+## Implemented Features
 
-### 1. Sistema de Chat
+### 1. Chat System
 
-- Interface de chat em tempo real
-- Histórico de conversas
-- Persistência de dados
-- Relacionamento entre prompts e respostas
+- Real-time chat interface
+- Conversation history
+- Data persistence
+- Relationship between prompts and responses
 
-### 2. Banco de Dados
+### 2. Database
 
-- Schema otimizado com Prisma
-- Relacionamentos 1:N
-- Timestamps automáticos
-- Migrations configuradas
+- Optimized schema with Prisma
+- 1:N relationships
+- Automatic timestamps
+- Configured migrations
 
-### 3. API REST
+### 3. REST API
 
-- Endpoints para prompts e respostas
-- Validação de dados
-- Tratamento de erros
-- CORS configurado
+- Endpoints for prompts and responses
+- Data validation
+- Error handling
+- Configured CORS
 
-### 4. Sistema de Autenticação ✅
+### 4. Authentication System ✅
 
-- Registro de usuários
-- Login com JWT
+- User registration
+- JWT login
 - Refresh tokens
-- Proteção de rotas
-- Validações de segurança
+- Route protection
+- Security validations
 
-## Funcionalidades em Desenvolvimento
+## Features Under Development
 
-### 1. Sistema de Autenticação
+### 1. Authentication System
 
-- Registro de usuários
-- Login com JWT
+- User registration
+- JWT login
 - Refresh tokens
-- Proteção de rotas
-- Validações de segurança
+- Route protection
+- Security validations
 
-### 2. Integração com LLM
+### 2. LLM Integration
 
-- Configuração de API keys
-- Sistema de cache
-- Tratamento de erros
+- API keys configuration
+- Cache system
+- Error handling
 - Fallback system
 
-## Como Executar
+## How to Run
 
-### Pré-requisitos
+### Prerequisites
 
-- Node.js (v18 ou superior)
-- npm ou yarn
+- Node.js (v18 or higher)
+- npm or yarn
 - Angular CLI
 - SQLite
 
@@ -96,19 +96,19 @@ npm run dev
 ### Frontend
 
 ```bash
-cd llm-gbn
+cd frontend
 npm install
 ng serve
 ```
 
-### Banco de Dados
+### Database
 
 ```bash
 cd backend
 npx prisma studio
 ```
 
-## Estrutura do Projeto
+## Project Structure
 
 ### Backend
 
@@ -136,7 +136,7 @@ backend/
 ### Frontend
 
 ```
-llm-gbn/
+frontend/
 ├── src/
 │   ├── app/
 │   │   ├── components/
@@ -146,79 +146,63 @@ llm-gbn/
 └── package.json
 ```
 
-## Documentação
+## Documentation
 
-### Técnica
+### Technical
 
-- [TECHNICAL.md](./TECHNICAL.md) - Documentação técnica detalhada
-- [API.md](./API.md) - Documentação da API (em desenvolvimento)
+- [TECHNICAL.md](./TECHNICAL.md) - Detailed technical documentation
+- [API.md](./API.md) - API documentation (under development)
 
-### Usuário
+### User
 
-- [USER_GUIDE.md](./USER_GUIDE.md) - Guia do usuário (em desenvolvimento)
+- [USER_GUIDE.md](./USER_GUIDE.md) - User guide (under development)
 
-## Contribuição
+## Contributing
 
-### Padrões de Código
+### Code Standards
 
-- ESLint para JavaScript/TypeScript
-- Prettier para formatação
+- ESLint for JavaScript/TypeScript
+- Prettier for formatting
 - Conventional Commits
 - Branch Protection
 
-### Processo de Desenvolvimento
+### Development Process
 
-1. Criar branch feature/fix
-2. Desenvolver funcionalidade
-3. Testes unitários
+1. Create feature/fix branch
+2. Develop functionality
+3. Unit tests
 4. Pull Request
 5. Code Review
 6. Merge
 
-## Segurança
+## Security
 
-### Implementações
+### Implementations
 
-- CORS configurado ✅
-- Validação de inputs ✅
-- Sanitização de dados ✅
-- Rate limiting (planejado)
+- Configured CORS ✅
+- Input validation ✅
+- Data sanitization ✅
+- Rate limiting (planned)
 
-### Boas Práticas
+### Best Practices
 
-- Variáveis de ambiente ✅
-- Logging seguro ✅
-- Auditoria de código
-- Backups regulares
+- Environment variables ✅
+- Secure logging ✅
+- Code auditing
+- Regular backups
 
 ## Roadmap
 
-### Fase 1 - MVP (Em Progresso)
+### Phase 1 - MVP (In Progress)
 
-- [x] Estrutura básica
-- [x] Sistema de chat
-- [x] Persistência de dados
-- [x] Autenticação de usuários
-- [x] Proteção de rotas
+- [x] Basic structure
+- [x] Chat system
+- [x] Data persistence
 
-### Fase 2 - Melhorias
+## License
 
-- [ ] Integração com LLM
-- [ ] Cache de respostas
-- [ ] Interface responsiva
-- [ ] Testes automatizados
+This project is proprietary and confidential. All rights reserved.
 
-### Fase 3 - Produção
+## Contact
 
-- [ ] Migração para PostgreSQL
-- [ ] CI/CD pipeline
-- [ ] Monitoramento
-- [ ] Documentação completa
-
-## Licença
-
-Este projeto é proprietário e confidencial. Todos os direitos reservados.
-
-## Contato
-
-Para mais informações, entre em contato com a equipe de desenvolvimento da GBN.
+For more information, contact the GBN development team.

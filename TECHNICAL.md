@@ -1,45 +1,45 @@
-# Documentação Técnica - ChatBot GBN
+# Technical Documentation - ChatBot GBN
 
-## Arquitetura do Sistema
+## System Architecture
 
-### Stack Tecnológica
+### Technology Stack
 
 - **Frontend**: Angular 19 (Standalone Components)
 - **Backend**: Node.js + Express
 - **Database**: SQLite + Prisma ORM
-- **Protocolo de Comunicação**: REST API
+- **Communication Protocol**: REST API
 
-### Diagrama de Arquitetura
+### Architecture Diagram
 
 ```
-[Cliente] <-- HTTP/HTTPS --> [Backend API] <-- Prisma --> [SQLite Database]
+[Client] <-- HTTP/HTTPS --> [Backend API] <-- Prisma --> [SQLite Database]
    |                              |
    |                              |
 [Angular SPA] <-- WebSocket --> [Express Server]
 ```
 
-## Implementações Atuais
+## Current Implementations
 
 ### 1. Backend (Node.js + Express)
 
-#### Estrutura de Rotas
+#### Route Structure
 
 ```javascript
-// Rotas de Autenticação
+// Authentication Routes
 POST /api/auth/register
 POST /api/auth/login
 POST /api/auth/refresh
 POST /api/auth/logout
 GET /api/auth/me
 
-// Rotas de Chat
+// Chat Routes
 POST /api/prompts
 GET /api/prompts
 GET /api/prompts/:id/responses
 POST /api/prompts/:id/responses
 ```
 
-#### Middleware Implementado
+#### Implemented Middleware
 
 - CORS ✅
 - JSON Parser ✅
@@ -47,46 +47,46 @@ POST /api/prompts/:id/responses
 - Authentication ✅
 - Validation ✅
 
-#### Integração com Prisma
+#### Prisma Integration
 
-- Schema definido com relacionamentos 1:N entre Prompt e Response
-- Migrations configuradas para versionamento do banco
-- Prisma Client gerado e configurado para uso
+- Schema defined with 1:N relationships between Prompt and Response
+- Configured migrations for database versioning
+- Prisma Client generated and configured for use
 
 ### 2. Frontend (Angular)
 
-#### Componentes
+#### Components
 
-- `ChatbotComponent`: Componente principal standalone
-  - Gerenciamento de estado local
-  - Integração com API REST
-  - UI/UX responsiva
+- `ChatbotComponent`: Main standalone component
+  - Local state management
+  - REST API integration
+  - Responsive UI/UX
 
-#### Serviços
+#### Services
 
-- `HttpClient`: Para comunicação com backend
-- Formulários reativos para input do usuário
+- `HttpClient`: For backend communication
+- Reactive forms for user input
 
-#### Estilização
+#### Styling
 
-- SCSS com variáveis CSS
-- Design responsivo
-- Animações de UI
+- SCSS with CSS variables
+- Responsive design
+- UI animations
 
-### 3. Banco de Dados (SQLite + Prisma)
+### 3. Database (SQLite + Prisma)
 
-#### Schema Atual
+#### Current Schema
 
 ```prisma
 model User {
   id            Int       @id @default(autoincrement())
   email         String    @unique
-  password      String    // Hash da senha
+  password      String    // Password hash
   name          String
   role          Role      @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  prompts       Prompt[]  // Relacionamento com os prompts do usuário
+  prompts       Prompt[]  // Relationship with user prompts
   refreshTokens RefreshToken[]
 }
 
@@ -103,7 +103,7 @@ model Prompt {
   id        Int       @id @default(autoincrement())
   content   String
   timestamp DateTime  @default(now())
-  userId    Int       // ID do usuário que criou o prompt
+  userId    Int       // User ID who created the prompt
   user      User      @relation(fields: [userId], references: [id])
   responses Response[]
 }
@@ -122,9 +122,9 @@ enum Role {
 }
 ```
 
-## Implementação de Autenticação ✅
+## Authentication Implementation ✅
 
-### 1. Estrutura de Arquivos
+### 1. File Structure
 
 ```
 backend/
@@ -143,218 +143,210 @@ backend/
 │   └── server.js
 ```
 
-### 2. Rotas de Autenticação
+### 2. Authentication Routes
 
 ```javascript
-// Rotas públicas
+// Public routes
 POST / api / auth / register;
 POST / api / auth / login;
 POST / api / auth / refresh;
 
-// Rotas protegidas
+// Protected routes
 GET / api / auth / me;
 POST / api / auth / logout;
 ```
 
-### 3. Validações ✅
+### 3. Validations ✅
 
-- Email único
-- Senha forte (mínimo 8 caracteres, números, letras)
-- Confirmação de senha
-- Formato de email válido
-- Nome obrigatório
+- Unique email
+- Strong password (minimum 8 characters, numbers, letters)
+- Password confirmation
+- Valid email format
+- Required name
 
-### 4. Segurança ✅
+### 4. Security ✅
 
-- Tokens JWT com expiração
+- JWT tokens with expiration
 - Refresh tokens
-- Hash de senha com bcrypt
-- Proteção contra ataques comuns
+- Password hashing with bcrypt
+- Protection against common attacks
 
-## Próximas Implementações Técnicas
+## Next Technical Implementations
 
-### 1. Integração com LLM (Pendente)
+### 1. LLM Integration (Pending)
 
-- [ ] Configuração de API keys seguras
-- [ ] Sistema de cache para respostas
-- [ ] Tratamento de erros da API
-- [ ] Sistema de fallback
-- [ ] Logging de requisições
+- [ ] Secure API keys configuration
+- [ ] Response cache system
+- [ ] API error handling
+- [ ] Fallback system
+- [ ] Request logging
 
-### 2. Melhorias no Banco de Dados
+### 2. Database Improvements
 
-- [ ] Índices otimizados
-- [ ] Sistema de backup
-- [ ] Migração para PostgreSQL (escalabilidade)
-- [ ] Implementação de soft delete
-- [ ] Sistema de versionamento de respostas
+- [ ] Optimized indexes
+- [ ] Backup system
+- [ ] PostgreSQL migration (scalability)
+- [ ] Soft delete implementation
+- [ ] Response versioning system
 
 ### 3. Frontend
 
 - [ ] State Management (NgRx)
-- [ ] Lazy Loading de módulos
+- [ ] Module lazy loading
 - [ ] PWA capabilities
-- [ ] Testes unitários (Jasmine/Karma)
-- [ ] Testes E2E (Cypress)
+- [ ] Unit tests (Jasmine/Karma)
+- [ ] E2E tests (Cypress)
 
 ### 4. Backend
 
-- [ ] Validação de entrada com Zod
-- [ ] Documentação com Swagger/OpenAPI
-- [ ] Logging estruturado
-- [ ] Monitoramento de performance
-- [ ] Containerização com Docker
+- [ ] Rate limiting
+- [ ] Request validation
+- [ ] Response caching
+- [ ] Error monitoring
+- [ ] Performance optimization
 
-### 5. DevOps
+## Security Considerations
 
-- [ ] CI/CD pipeline
-- [ ] Ambiente de staging
-- [ ] Monitoramento com Prometheus
-- [ ] Logging com ELK Stack
-- [ ] Backup automatizado
+### Necessary Implementations
 
-## Considerações de Segurança
+1. **Data Protection** ✅
 
-### Implementações Necessárias
-
-1. **Proteção de Dados** ✅
-
-   - Criptografia em trânsito (HTTPS)
-   - Sanitização de inputs
-   - Proteção contra XSS
+   - Encryption in transit (HTTPS)
+   - Input sanitization
+   - Protection against XSS
    - CSRF tokens
 
-2. **Autenticação** ✅
+2. **Authentication** ✅
 
-   - JWT com refresh tokens
-   - Políticas de senha
-   - Sessões seguras
+   - JWT with refresh tokens
+   - Password policies
+   - Secure sessions
 
-3. **Auditoria**
-   - Logging de ações
-   - Rastreamento de mudanças
-   - Alertas de segurança
+3. **Auditing**
+   - Action logging
+   - Change tracking
+   - Security alerts
 
-## Performance e Escalabilidade
+## Performance and Scalability
 
-### Otimizações Planejadas
+### Planned Optimizations
 
 1. **Frontend**
 
-   - Implementação de Service Workers
-   - Otimização de assets
+   - Implementation of Service Workers
+   - Asset optimization
    - Code splitting
    - Lazy loading
 
 2. **Backend**
 
-   - Caching com Redis
+   - Caching with Redis
    - Load balancing
    - Connection pooling
    - Query optimization
 
 3. **Database**
    - Sharding
-   - Replicação
+   - Replication
    - Query optimization
-   - Indexação estratégica
+   - Strategic indexing
 
-## Monitoramento e Logging
+## Monitoring and Logging
 
-### Implementações Futuras
+### Future Implementations
 
-1. **Métricas**
+1. **Metrics**
 
-   - Tempo de resposta
-   - Taxa de erro
-   - Uso de recursos
+   - Response time
+   - Error rate
+   - Resource usage
    - Health checks
 
 2. **Logging**
-   - Logs estruturados
-   - Rotação de logs
-   - Alertas
+   - Structured logs
+   - Log rotation
+   - Alerts
    - Dashboards
 
-## Documentação Técnica Pendente
+## Pending Technical Documentation
 
 1. **API Documentation**
 
    - OpenAPI/Swagger
    - Postman Collection
-   - Exemplos de uso
+   - Usage examples
 
-2. **Arquitetura**
+2. **Architecture**
 
-   - Diagramas detalhados
-   - Fluxos de dados
-   - Decisões técnicas
+   - Detailed diagrams
+   - Data flows
+   - Technical decisions
 
 3. **DevOps**
-   - Procedimentos de deploy
-   - Configuração de ambiente
+   - Deployment procedures
+   - Environment configuration
    - Troubleshooting guide
 
-# Roteiro Detalhado das Implementações Realizadas
+# Detailed Implementation Plan
 
-## 1. Configuração Inicial do Projeto
+## 1. Initial Project Configuration
 
-- Estruturação dos diretórios `backend/` e `llm-gbn/` (frontend Angular).
-- Configuração do banco de dados SQLite com Prisma ORM.
-- Criação do schema inicial no arquivo `backend/prisma/schema.prisma`.
+- Directory structure setup for `backend/` and `llm-gbn/` (frontend Angular).
+- SQLite database setup with Prisma ORM.
+- Initial schema creation in `backend/prisma/schema.prisma`.
 
-## 2. Backend: API e Autenticação
+## 2. Backend: API and Authentication
 
-- Implementação do servidor Express em `backend/src/server.js`.
-- Criação das rotas protegidas e públicas para autenticação em `backend/src/routes/auth.routes.js`.
-- Implementação dos controladores de autenticação em `backend/src/controllers/auth.controller.js`.
-- Criação do middleware de autenticação JWT em `backend/src/middleware/auth.middleware.js`.
-- Implementação dos utilitários de JWT e senha em `backend/src/utils/jwt.utils.js` e `backend/src/utils/password.utils.js`.
-- Validação de dados de entrada com express-validator em `backend/src/middleware/validate.middleware.js`.
-- Endpoints principais:
-  - `POST /api/auth/register` (registro)
+- Express server implementation in `backend/src/server.js`.
+- Protected and public routes for authentication in `backend/src/routes/auth.routes.js`.
+- Authentication controllers in `backend/src/controllers/auth.controller.js`.
+- JWT authentication middleware in `backend/src/middleware/auth.middleware.js`.
+- JWT and password utilitaries in `backend/src/utils/jwt.utils.js` and `backend/src/utils/password.utils.js`.
+- Input data validation with express-validator in `backend/src/middleware/validate.middleware.js`.
+- Main endpoints:
+  - `POST /api/auth/register` (registration)
   - `POST /api/auth/login` (login)
   - `POST /api/auth/refresh` (refresh token)
   - `POST /api/auth/logout` (logout)
-  - `GET /api/auth/me` (dados do usuário)
-- Proteção das rotas de prompts e respostas com autenticação JWT.
+  - `GET /api/auth/me` (user data)
+- JWT protection for prompts and responses.
 
-## 3. Backend: Persistência de Conversas
+## 3. Backend: Conversation Persistence
 
-- Criação dos modelos `Prompt` e `Response` no schema Prisma.
-- Implementação dos endpoints:
-  - `POST /api/prompts` (salva prompt e resposta automática)
-  - `GET /api/prompts` (retorna histórico do usuário autenticado)
-  - `GET /api/prompts/:id/responses` (respostas de um prompt)
-  - `POST /api/prompts/:id/responses` (adiciona resposta a um prompt)
-- Associação dos prompts ao usuário autenticado via `userId`.
+- Prompt and Response models creation in Prisma schema.
+- Implementation of endpoints:
+  - `POST /api/prompts` (saves prompt and automatic response)
+  - `GET /api/prompts` (returns user's history)
+  - `GET /api/prompts/:id/responses` (responses to a prompt)
+  - `POST /api/prompts/:id/responses` (adds response to a prompt)
+- Association of prompts with authenticated user via `userId`.
 
-## 4. Frontend: Interface e Integração
+## 4. Frontend: Interface and Integration
 
-- Criação do componente principal de chat em `llm-gbn/src/app/components/chatbot/chatbot.component.ts`.
-- Integração com a API para envio de prompts e exibição de respostas.
-- Implementação da busca automática do histórico de conversas ao carregar o componente (`ngOnInit` + método `loadChatHistory`).
-- Exibição da mensagem de boas-vindas personalizada com o nome do usuário.
-- Ajuste para que, ao atualizar a página, o histórico seja mantido.
+- Chat component creation in `llm-gbn/src/app/components/chatbot/chatbot.component.ts`.
+- API integration for prompt sending and response display.
+- Automatic history loading on component load (`ngOnInit` + `loadChatHistory` method).
+- Welcome message with user's name.
+- Page update retention of history.
 
-## 5. Frontend: Internacionalização para Francês
+## 5. Frontend: French Translation
 
-- Tradução de todo o conteúdo textual dos componentes de chat, login e registro para francês.
-- Ajuste dos placeholders, mensagens de erro, botões e mensagens de boas-vindas.
-- Correção do template do botão de inscrição para evitar bugs de exibição.
+- Translation of all textual content in chat, login, and registration components to French.
+- Placeholder, error message, button, and welcome message adjustments.
+- Subscription button template correction to avoid display bugs.
 
-## 6. Testes e Validações
+## 6. Tests and Validations
 
-- Testes manuais de registro, login, envio de prompts e atualização de página.
-- Verificação do fluxo de autenticação e persistência de conversas.
-- Ajuste visual e funcional dos formulários.
+- Manual tests for registration, login, prompt sending, and page update.
+- Authentication and conversation persistence flow verification.
+- Visual and functional form adjustments.
 
 ---
 
-**Resumo:**
+**Summary:**
 
-- O backend foi estruturado com autenticação JWT, refresh token, proteção de rotas e persistência de prompts/respostas por usuário.
-- O frontend foi integrado à API, traduzido para francês e ajustado para manter o histórico de conversas após atualização da página.
-- Todas as alterações foram feitas de forma incremental, com explicações e validações a cada etapa.
+- The backend was structured with JWT authentication, refresh token, route protection, and prompt/response persistence per user.
+- The frontend was integrated to the API, translated to French, and adjusted to retain conversation history after page update.
+- All changes were made incrementally, with explanations and validations at each step.
 
-Esse roteiro pode ser apresentado ao seu coach para demonstrar domínio sobre cada parte do processo e justificar as decisões técnicas tomadas.
+This plan can be presented to your coach to demonstrate mastery of each process part and justify the technical decisions made.
