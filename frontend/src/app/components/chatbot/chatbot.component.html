@@ -1,0 +1,74 @@
+<div class="chat-container">
+  <header class="chat-header">
+    <div class="logo-container">
+      <!-- <img
+        [src]="'/assets/images/gbnewslogo.jpeg'"
+        alt="GBNews Logo"
+        class="gbn-logo"
+      /> -->
+    </div>
+    <h1>ChatBot GBN</h1>
+    <p class="subtitle">Votre compagnon intelligent</p>
+  </header>
+
+  <div class="chat-messages" #chatMessages>
+    <div
+      class="message"
+      [ngClass]="message.isUser ? 'user' : 'bot'"
+      *ngFor="let message of messages"
+    >
+      <div
+        class="message-content"
+        [ngClass]="message.isUser ? 'user-message' : 'bot-message'"
+      >
+        <p>{{ message.content }}</p>
+      </div>
+    </div>
+    <div class="message bot typing" *ngIf="isTyping">
+      <div class="message-content">
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-container">
+    <form [formGroup]="chatForm" (ngSubmit)="onSubmit()" class="chat-form">
+      <textarea
+        formControlName="message"
+        placeholder="Écrivez votre message ici..."
+        rows="1"
+        class="chat-input"
+        (input)="autoResize($event)"
+        (keypress)="handleKeyPress($event)"
+      ></textarea>
+      <button type="submit" class="send-button" [disabled]="!chatForm.valid">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M22 2L11 13"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22 2L15 22L11 13L2 9L22 2Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
