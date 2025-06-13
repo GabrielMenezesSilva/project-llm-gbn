@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  password      String    // Hash da senha
+  name          String
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  prompts       Prompt[]  // Relacionamento com os prompts do usuário
+  refreshTokens RefreshToken[]
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Prompt {
+  id        Int       @id @default(autoincrement())
+  content   String
+  timestamp DateTime  @default(now())
+  userId    Int       // ID do usuário que criou o prompt
+  user      User      @relation(fields: [userId], references: [id])
+  responses Response[]
+}
+
+model Response {
+  id        Int      @id @default(autoincrement())
+  content   String
+  timestamp DateTime @default(now())
+  prompt    Prompt   @relation(fields: [promptId], references: [id])
+  promptId  Int
+}
+
+enum Role {
+  USER
+  ADMIN
+}
