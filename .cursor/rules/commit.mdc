@@ -1,6 +1,0 @@
----
-description: 
-globs: 
-alwaysApply: false
----
-In this project, all git commit messages must be in English, following the format: <type>: <description>
