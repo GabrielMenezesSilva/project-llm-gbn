@@ -33,7 +33,7 @@ ChatBot GBN is an intelligent chat application developed for internal use at GBN
 ### 1. Chat System
 
 - Real-time chat interface
-- Conversation history
+- Simple text-based conversation display
 - Data persistence
 - Relationship between prompts and responses
 
@@ -61,15 +61,7 @@ ChatBot GBN is an intelligent chat application developed for internal use at GBN
 
 ## Features Under Development
 
-### 1. Authentication System
-
-- User registration
-- JWT login
-- Refresh tokens
-- Route protection
-- Security validations
-
-### 2. LLM Integration
+### 1. LLM Integration
 
 - API keys configuration
 - Cache system
@@ -198,6 +190,7 @@ frontend/
 - [x] Basic structure
 - [x] Chat system
 - [x] Data persistence
+- [x] Authentication system
 
 ## License
 

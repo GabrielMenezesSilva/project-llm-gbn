@@ -60,12 +60,15 @@ POST /api/prompts/:id/responses
 - `ChatbotComponent`: Main standalone component
   - Local state management
   - REST API integration
+  - Simple text-based UI
+  - ViewChild for element reference
   - Responsive UI/UX
 
 #### Services
 
 - `HttpClient`: For backend communication
 - Reactive forms for user input
+- Authentication service with JWT handling
 
 #### Styling
 
@@ -248,8 +251,6 @@ POST / api / auth / logout;
 3. **Database**
    - Sharding
    - Replication
-   - Query optimization
-   - Strategic indexing
 
 ## Monitoring and Logging
 
