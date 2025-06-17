@@ -15,6 +15,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { MarkdownService } from '../../services/markdown.service';
 
 interface ChatMessage {
   content: string;
@@ -56,7 +57,11 @@ interface Response {
             class="message-wrapper"
           >
             <div class="message-content">
-              {{ message.content }}
+              <div
+                *ngIf="!message.isUser"
+                [innerHTML]="markdownService.convertToHtml(message.content)"
+              ></div>
+              <span *ngIf="message.isUser">{{ message.content }}</span>
             </div>
           </div>
           <div *ngIf="isTyping" class="assistant message-wrapper">
@@ -536,7 +541,8 @@ export class ChatbotComponent implements AfterViewChecked, OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public markdownService: MarkdownService
   ) {
     this.chatForm = this.fb.group({
       message: ['', [Validators.required, Validators.minLength(1)]],
